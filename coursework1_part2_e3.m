@@ -1,0 +1,348 @@
+%% Mathematical Programming and Research Methods Coursework 1
+
+%% Part 3 - For the sin basis
+
+iterations = 100;
+
+
+% Repeat everything 100 times
+
+mse_results_sum = 0;
+mse_results_1000_sum = 0;
+
+for i = 1:iterations
+
+    % Generate 30 random x-values and order them, change to 1000 for part d
+    x_samples = sort(rand(30,1));
+    x_samples_1000 = sort(rand(1000,1));
+
+    % True plot of sin(2*pi*x) over interval [0,1]
+    x_vals = linspace(min(x_samples),max(x_samples));
+    y_vals = sin(2*pi*x_vals).*sin(2*pi*x_vals);
+
+    % Calculate Corresponding y-values for data set of size 30
+    data_points = [];
+    data_points_num = numel(x_samples);
+    for i = 1:data_points_num
+        data_points = [data_points gsig(0.07,x_samples(i))];
+    end
+
+    % Calculate Corresponding y-values for data set of size 1000
+    data_points_1000 = [];
+    data_points_1000_num = numel(x_samples_1000);
+    for i = 1:data_points_1000_num
+        data_points_1000 = [data_points_1000 gsig(0.07,x_samples_1000(i))];
+    end
+
+
+    %% Exercise 2(bii)
+    % Plot over polynomial bases with sizes 2,5,10,14,18
+
+    % % Basis of size 1
+    % A_basis_1 = [ones(size(x_samples))];
+    % c_basis_1 = (A_basis_1'*A_basis_1)\(A_basis_1'*data_points');
+    % y_fit_1 = c_basis_1(1);
+
+     % Basis of size 2
+    A_basis_2 = [sin(pi*x_samples) sin(2*pi*x_samples)];
+    c_basis_2 = (A_basis_2'*A_basis_2)\(A_basis_2'*data_points');
+    y_fit_2 = c_basis_2(2)*x_vals + c_basis_2(1);
+
+    % Basis of size 3
+    A_basis_3 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples)];
+    c_basis_3 = (A_basis_3'*A_basis_3)\(A_basis_3'*data_points');
+    y_fit_3 = c_basis_3(3)*x_vals.^2 + c_basis_3(2)*x_vals + c_basis_3(1);
+
+    % Basis of size 4
+    A_basis_4 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples)];
+    c_basis_4 = (A_basis_4'*A_basis_4)\(A_basis_4'*data_points');
+    y_fit_4 = c_basis_4(4)*x_vals.^3 + c_basis_4(3)*x_vals.^2 + c_basis_4(2)*x_vals + c_basis_4(1);
+
+    % Basis of size 5
+    A_basis_5 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples)];
+    c_basis_5 = (A_basis_5'*A_basis_5)\(A_basis_5'*data_points');
+    y_fit_5 = c_basis_5(5)*x_vals.^4 + c_basis_5(4)*x_vals.^3 + c_basis_5(3)*x_vals.^2 + c_basis_5(2)*x_vals + c_basis_5(1);
+
+    % Basis of size 6
+    A_basis_6 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples)];
+    c_basis_6 = (A_basis_6'*A_basis_6)\(A_basis_6'*data_points');
+    y_fit_6 = c_basis_6(6)*x_vals.^5 + c_basis_6(5)*x_vals.^4 + c_basis_6(4)*x_vals.^3 + c_basis_6(3)*x_vals.^2 + c_basis_6(2)*x_vals + c_basis_6(1);
+
+    % Basis of size 7
+    A_basis_7 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples)];
+    c_basis_7 = (A_basis_7'*A_basis_7)\(A_basis_7'*data_points');
+    y_fit_7 = c_basis_7(7)*x_vals.^6 + c_basis_7(6)*x_vals.^5 + c_basis_7(5)*x_vals.^4 + c_basis_7(4)*x_vals.^3 + c_basis_7(3)*x_vals.^2 + c_basis_7(2)*x_vals + c_basis_7(1);
+
+    % Basis of size 8
+    A_basis_8 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples)];
+    c_basis_8 = (A_basis_8'*A_basis_8)\(A_basis_8'*data_points');
+    y_fit_8 = c_basis_8(8)*x_vals.^7 + c_basis_8(7)*x_vals.^6 + c_basis_8(6)*x_vals.^5 + c_basis_8(5)*x_vals.^4 + c_basis_8(4)*x_vals.^3 + c_basis_8(3)*x_vals.^2 + c_basis_8(2)*x_vals + c_basis_8(1);
+
+    % Basis of size 9
+    A_basis_9 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples)];
+    c_basis_9 = (A_basis_9'*A_basis_9)\(A_basis_9'*data_points');
+    y_fit_9 = c_basis_9(9)*x_vals.^8 + c_basis_9(8)*x_vals.^7 + c_basis_9(7)*x_vals.^6 + c_basis_9(6)*x_vals.^5 + c_basis_9(5)*x_vals.^4 + c_basis_9(4)*x_vals.^3 + c_basis_9(3)*x_vals.^2 + c_basis_9(2)*x_vals + c_basis_9(1);
+
+    % Basis of size 10
+    A_basis_10 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples)];
+    c_basis_10 = (A_basis_10'*A_basis_10)\(A_basis_10'*data_points');
+    y_fit_10 = c_basis_10(10)*x_vals.^9 + c_basis_10(9)*x_vals.^8 + c_basis_10(8)*x_vals.^7 + c_basis_10(7)*x_vals.^6 + c_basis_10(6)*x_vals.^5 + c_basis_10(5)*x_vals.^4 + c_basis_10(4)*x_vals.^3 + c_basis_10(3)*x_vals.^2 + c_basis_10(2)*x_vals + c_basis_10(1);
+
+    % Basis of size 11
+    A_basis_11 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples)];
+    c_basis_11 = (A_basis_11'*A_basis_11)\(A_basis_11'*data_points');
+    y_fit_11 = c_basis_11(11)*x_vals.^10 + c_basis_11(10)*x_vals.^9 + c_basis_11(9)*x_vals.^8 + c_basis_11(8)*x_vals.^7 + c_basis_11(7)*x_vals.^6 + c_basis_11(6)*x_vals.^5 + c_basis_11(5)*x_vals.^4 + c_basis_11(4)*x_vals.^3 + c_basis_11(3)*x_vals.^2 + c_basis_11(2)*x_vals + c_basis_11(1);
+
+    % Basis of size 12
+    A_basis_12 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples)];
+    c_basis_12 = (A_basis_12'*A_basis_12)\(A_basis_12'*data_points');
+    y_fit_12 = c_basis_12(12)*x_vals.^11 + c_basis_12(11)*x_vals.^10 + c_basis_12(10)*x_vals.^9 + c_basis_12(9)*x_vals.^8 + c_basis_12(8)*x_vals.^7 + c_basis_12(7)*x_vals.^6 + c_basis_12(6)*x_vals.^5 + c_basis_12(5)*x_vals.^4 + c_basis_12(4)*x_vals.^3 + c_basis_12(3)*x_vals.^2 + c_basis_12(2)*x_vals + c_basis_12(1);
+
+    % Basis of size 13
+    A_basis_13 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples)];
+    c_basis_13 = (A_basis_13'*A_basis_13)\(A_basis_13'*data_points');
+    y_fit_13 = c_basis_13(13)*x_vals.^12 + c_basis_13(12)*x_vals.^11 + c_basis_13(11)*x_vals.^10 + c_basis_13(10)*x_vals.^9 + c_basis_13(9)*x_vals.^8 + c_basis_13(8)*x_vals.^7 + c_basis_13(7)*x_vals.^6 + c_basis_13(6)*x_vals.^5 + c_basis_13(5)*x_vals.^4 + c_basis_13(4)*x_vals.^3 + c_basis_13(3)*x_vals.^2 + c_basis_13(2)*x_vals + c_basis_13(1);
+
+    % Basis of size 14
+    A_basis_14 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples) sin(14*pi*x_samples)];
+    c_basis_14 = (A_basis_14'*A_basis_14)\(A_basis_14'*data_points');
+    y_fit_14 = c_basis_14(14)*x_vals.^13 + c_basis_14(13)*x_vals.^12 + c_basis_14(12)*x_vals.^11 + c_basis_14(11)*x_vals.^10 + c_basis_14(10)*x_vals.^9 + c_basis_14(9)*x_vals.^8 + c_basis_14(8)*x_vals.^7 + c_basis_14(7)*x_vals.^6 + c_basis_14(6)*x_vals.^5 + c_basis_14(5)*x_vals.^4 + c_basis_14(4)*x_vals.^3 + c_basis_14(3)*x_vals.^2 + c_basis_14(2)*x_vals + c_basis_14(1);
+
+    % Basis of size 15
+    A_basis_15 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples) sin(14*pi*x_samples) sin(15*pi*x_samples)];
+    c_basis_15 = (A_basis_15'*A_basis_15)\(A_basis_15'*data_points');
+    y_fit_15 = c_basis_15(15)*x_vals.^14 + c_basis_15(14)*x_vals.^13 + c_basis_15(13)*x_vals.^12 + c_basis_15(12)*x_vals.^11 + c_basis_15(11)*x_vals.^10 + c_basis_15(10)*x_vals.^9 + c_basis_15(9)*x_vals.^8 + c_basis_15(8)*x_vals.^7 + c_basis_15(7)*x_vals.^6 + c_basis_15(6)*x_vals.^5 + c_basis_15(5)*x_vals.^4 + c_basis_15(4)*x_vals.^3 + c_basis_15(3)*x_vals.^2 + c_basis_15(2)*x_vals + c_basis_15(1);
+
+    % Basis of size 16
+    A_basis_16 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples) sin(14*pi*x_samples) sin(15*pi*x_samples) sin(16*pi*x_samples)];
+    c_basis_16 = (A_basis_16'*A_basis_16)\(A_basis_16'*data_points');
+    y_fit_16 = c_basis_16(16)*x_vals.^15 + c_basis_16(15)*x_vals.^14 + c_basis_16(14)*x_vals.^13 + c_basis_16(13)*x_vals.^12 + c_basis_16(12)*x_vals.^11 + c_basis_16(11)*x_vals.^10 + c_basis_16(10)*x_vals.^9 + c_basis_16(9)*x_vals.^8 + c_basis_16(8)*x_vals.^7 + c_basis_16(7)*x_vals.^6 + c_basis_16(6)*x_vals.^5 + c_basis_16(5)*x_vals.^4 + c_basis_16(4)*x_vals.^3 + c_basis_16(3)*x_vals.^2 + c_basis_16(2)*x_vals + c_basis_16(1);
+
+    % Basis of size 17
+    A_basis_17 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples) sin(14*pi*x_samples) sin(15*pi*x_samples) sin(16*pi*x_samples) sin(17*pi*x_samples)];
+    c_basis_17 = (A_basis_17'*A_basis_17)\(A_basis_17'*data_points');
+    y_fit_17 = c_basis_17(17)*x_vals.^16 + c_basis_17(16)*x_vals.^15 + c_basis_17(15)*x_vals.^14 + c_basis_17(14)*x_vals.^13 + c_basis_17(13)*x_vals.^12 + c_basis_17(12)*x_vals.^11 + c_basis_17(11)*x_vals.^10 + c_basis_17(10)*x_vals.^9 + c_basis_17(9)*x_vals.^8 + c_basis_17(8)*x_vals.^7 + c_basis_17(7)*x_vals.^6 + c_basis_17(6)*x_vals.^5 + c_basis_17(5)*x_vals.^4 + c_basis_17(4)*x_vals.^3 + c_basis_17(3)*x_vals.^2 + c_basis_17(2)*x_vals + c_basis_17(1);
+
+    % Basis of size 18
+    A_basis_18 = [sin(pi*x_samples) sin(2*pi*x_samples) sin(3*pi*x_samples) sin(4*pi*x_samples) sin(5*pi*x_samples) sin(6*pi*x_samples) sin(7*pi*x_samples) sin(8*pi*x_samples) sin(9*pi*x_samples) sin(10*pi*x_samples) sin(11*pi*x_samples) sin(12*pi*x_samples) sin(13*pi*x_samples) sin(14*pi*x_samples) sin(15*pi*x_samples) sin(16*pi*x_samples) sin(17*pi*x_samples) sin(18*pi*x_samples)];
+    c_basis_18 = (A_basis_18'*A_basis_18)\(A_basis_18'*data_points');
+    y_fit_18 = c_basis_18(18)*x_vals.^17 + c_basis_18(17)*x_vals.^16 + c_basis_18(16)*x_vals.^15 + c_basis_18(15)*x_vals.^14 + c_basis_18(14)*x_vals.^13 + c_basis_18(13)*x_vals.^12 + c_basis_18(12)*x_vals.^11 + c_basis_18(11)*x_vals.^10 + c_basis_18(10)*x_vals.^9 + c_basis_18(9)*x_vals.^8 + c_basis_18(8)*x_vals.^7 + c_basis_18(7)*x_vals.^6 + c_basis_18(6)*x_vals.^5 + c_basis_18(5)*x_vals.^4 + c_basis_18(4)*x_vals.^3 + c_basis_18(3)*x_vals.^2 + c_basis_18(2)*x_vals + c_basis_18(1);
+
+
+    %% Plot Results
+    % figure
+    % hold on % Superimpose data set from 2(a)
+    % scatter(x_samples,data_points,40,'filled'); 
+    % % plot(x_vals,y_vals,'Color',[0.8,0.2,0.2],'LineWidth',1); grid on; 
+    % plot(x_vals,y_fit_2, 'LineWidth',1.5); grid on; legend('Data Points','k = 2');title('Plot of sin^2(2*pi*x) function superimposed over random data points');
+    % % plot(x_vals,y_fit_5,x_vals,y_fit_10,x_vals,y_fit_14,x_vals,y_fit_18),'k=5','k=10','k=14','k=18');
+    % hold off
+
+
+    %% Plot the log of the training error versus the polynomial basis dimension k = 1,...,18
+
+    % % k = 1
+    % sse_sum_1 = 0;
+    % weight_1 = mldivide(x_vals*x_vals',x_vals)*y_fit_1';
+    % corresponding_y_1 = c_basis_1(1);
+    % for i = 1:data_points_num
+    %    sse_sum_1 = sse_sum_1 + ((corresponding_y_1(i) - (weight_1*x_samples(i)).^2));
+    % end
+    % mse_1 = sse_sum_1/data_points_num
+
+    % Mean Squared error for k = 2
+    corresponding_y_2 = c_basis_2(2)*x_samples + c_basis_2(1);
+    errors_2 = data_points' - corresponding_y_2;
+    mse_2 = mean(errors_2.^2)
+
+    % Mean Squared error for k = 3
+    corresponding_y_3 = c_basis_3(3)*x_samples.^2 + c_basis_3(2)*x_samples + c_basis_3(1);
+    errors_3 = data_points' - corresponding_y_3;
+    mse_3 = mean(errors_3.^2)
+
+    % Mean Squared error for k = 3
+    corresponding_y_4 = c_basis_4(4)*x_samples.^3 + c_basis_4(3)*x_samples.^2 + c_basis_4(2)*x_samples + c_basis_4(1);
+    errors_4 = data_points' - corresponding_y_4;
+    mse_4 = mean(errors_4.^2)
+
+    % k = 5
+    corresponding_y_5 = c_basis_5(5)*x_samples.^4 + c_basis_5(4)*x_samples.^3 + c_basis_5(3)*x_samples.^2 + c_basis_5(2)*x_samples + c_basis_5(1);
+    errors_5 = data_points' - corresponding_y_5;
+    mse_5 = mean(errors_5.^2)
+
+    % k = 6
+    corresponding_y_6 = c_basis_6(6)*x_samples.^5 + c_basis_6(5)*x_samples.^4 + c_basis_6(4)*x_samples.^3 + c_basis_6(3)*x_samples.^2 + c_basis_6(2)*x_samples + c_basis_6(1);
+    errors_6 = data_points' - corresponding_y_6;
+    mse_6 = mean(errors_6.^2)
+
+    % k = 7
+    corresponding_y_7 = c_basis_7(7)*x_samples.^6 + c_basis_7(6)*x_samples.^5 + c_basis_7(5)*x_samples.^4 + c_basis_7(4)*x_samples.^3 + c_basis_7(3)*x_samples.^2 + c_basis_7(2)*x_samples + c_basis_7(1);
+    errors_7 = data_points' - corresponding_y_7;
+    mse_7 = mean(errors_7.^2)
+
+    % k = 8
+    corresponding_y_8 = c_basis_8(8)*x_samples.^7 + c_basis_8(7)*x_samples.^6 + c_basis_8(6)*x_samples.^5 + c_basis_8(5)*x_samples.^4 + c_basis_8(4)*x_samples.^3 + c_basis_8(3)*x_samples.^2 + c_basis_8(2)*x_samples + c_basis_8(1);
+    errors_8 = data_points' - corresponding_y_8;
+    mse_8 = mean(errors_8.^2)
+
+    % k = 9
+    corresponding_y_9 = c_basis_9(9)*x_samples.^8 + c_basis_9(8)*x_samples.^7 + c_basis_9(7)*x_samples.^6 + c_basis_9(6)*x_samples.^5 + c_basis_9(5)*x_samples.^4 + c_basis_9(4)*x_samples.^3 + c_basis_9(3)*x_samples.^2 + c_basis_9(2)*x_samples + c_basis_9(1);
+    errors_9 = data_points' - corresponding_y_9;
+    mse_9 = mean(errors_9.^2)
+
+    % k = 10
+    corresponding_y_10 = c_basis_10(10)*x_samples.^9 + c_basis_10(9)*x_samples.^8 + c_basis_10(8)*x_samples.^7 + c_basis_10(7)*x_samples.^6 + c_basis_10(6)*x_samples.^5 + c_basis_10(5)*x_samples.^4 + c_basis_10(4)*x_samples.^3 + c_basis_10(3)*x_samples.^2 + c_basis_10(2)*x_samples + c_basis_10(1);
+    errors_10 = data_points' - corresponding_y_10;
+    mse_10 = mean(errors_10.^2)
+
+    % k = 11
+    corresponding_y_11 = c_basis_11(11)*x_samples.^10 + c_basis_11(10)*x_samples.^9 + c_basis_11(9)*x_samples.^8 + c_basis_11(8)*x_samples.^7 + c_basis_11(7)*x_samples.^6 + c_basis_11(6)*x_samples.^5 + c_basis_11(5)*x_samples.^4 + c_basis_11(4)*x_samples.^3 + c_basis_11(3)*x_samples.^2 + c_basis_11(2)*x_samples + c_basis_11(1);
+    errors_11 = data_points' - corresponding_y_11;
+    mse_11 = mean(errors_11.^2)
+
+    % k = 12
+    corresponding_y_12 = c_basis_12(12)*x_samples.^11 + c_basis_12(11)*x_samples.^10 + c_basis_12(10)*x_samples.^9 + c_basis_12(9)*x_samples.^8 + c_basis_12(8)*x_samples.^7 + c_basis_12(7)*x_samples.^6 + c_basis_12(6)*x_samples.^5 + c_basis_12(5)*x_samples.^4 + c_basis_12(4)*x_samples.^3 + c_basis_12(3)*x_samples.^2 + c_basis_12(2)*x_samples + c_basis_12(1);
+    errors_12 = data_points' - corresponding_y_12;
+    mse_12 = mean(errors_12.^2)
+
+    % k = 13
+    corresponding_y_13 = c_basis_13(13)*x_samples.^12 + c_basis_13(12)*x_samples.^11 + c_basis_13(11)*x_samples.^10 + c_basis_13(10)*x_samples.^9 + c_basis_13(9)*x_samples.^8 + c_basis_13(8)*x_samples.^7 + c_basis_13(7)*x_samples.^6 + c_basis_13(6)*x_samples.^5 + c_basis_13(5)*x_samples.^4 + c_basis_13(4)*x_samples.^3 + c_basis_13(3)*x_samples.^2 + c_basis_13(2)*x_samples + c_basis_13(1);
+    errors_13 = data_points' - corresponding_y_13;
+    mse_13 = mean(errors_13.^2)
+
+    % k = 14
+    corresponding_y_14 = c_basis_14(14)*x_samples.^13 + c_basis_14(13)*x_samples.^12 + c_basis_14(12)*x_samples.^11 + c_basis_14(11)*x_samples.^10 + c_basis_14(10)*x_samples.^9 + c_basis_14(9)*x_samples.^8 + c_basis_14(8)*x_samples.^7 + c_basis_14(7)*x_samples.^6 + c_basis_14(6)*x_samples.^5 + c_basis_14(5)*x_samples.^4 + c_basis_14(4)*x_samples.^3 + c_basis_14(3)*x_samples.^2 + c_basis_14(2)*x_samples + c_basis_14(1);
+    errors_14 = data_points' - corresponding_y_14;
+    mse_14 = mean(errors_14.^2)
+
+    % k = 15
+    corresponding_y_15 = c_basis_15(15)*x_samples.^14 + c_basis_15(14)*x_samples.^13 + c_basis_15(13)*x_samples.^12 + c_basis_15(12)*x_samples.^11 + c_basis_15(11)*x_samples.^10 + c_basis_15(10)*x_samples.^9 + c_basis_15(9)*x_samples.^8 + c_basis_15(8)*x_samples.^7 + c_basis_15(7)*x_samples.^6 + c_basis_15(6)*x_samples.^5 + c_basis_15(5)*x_samples.^4 + c_basis_15(4)*x_samples.^3 + c_basis_15(3)*x_samples.^2 + c_basis_15(2)*x_samples + c_basis_15(1);
+    errors_15 = data_points' - corresponding_y_15;
+    mse_15 = mean(errors_15.^2)
+
+    % k = 16
+    corresponding_y_16 = c_basis_16(16)*x_samples.^15 + c_basis_16(15)*x_samples.^14 + c_basis_16(14)*x_samples.^13 + c_basis_16(13)*x_samples.^12 + c_basis_16(12)*x_samples.^11 + c_basis_16(11)*x_samples.^10 + c_basis_16(10)*x_samples.^9 + c_basis_16(9)*x_samples.^8 + c_basis_16(8)*x_samples.^7 + c_basis_16(7)*x_samples.^6 + c_basis_16(6)*x_samples.^5 + c_basis_16(5)*x_samples.^4 + c_basis_16(4)*x_samples.^3 + c_basis_16(3)*x_samples.^2 + c_basis_16(2)*x_samples + c_basis_16(1);
+    errors_16 = data_points' - corresponding_y_16;
+    mse_16 = mean(errors_16.^2)
+
+    % k = 17
+    corresponding_y_17 = c_basis_17(17)*x_samples.^16 + c_basis_17(16)*x_samples.^15 + c_basis_17(15)*x_samples.^14 + c_basis_17(14)*x_samples.^13 + c_basis_17(13)*x_samples.^12 + c_basis_17(12)*x_samples.^11 + c_basis_17(11)*x_samples.^10 + c_basis_17(10)*x_samples.^9 + c_basis_17(9)*x_samples.^8 + c_basis_17(8)*x_samples.^7 + c_basis_17(7)*x_samples.^6 + c_basis_17(6)*x_samples.^5 + c_basis_17(5)*x_samples.^4 + c_basis_17(4)*x_samples.^3 + c_basis_17(3)*x_samples.^2 + c_basis_17(2)*x_samples + c_basis_17(1);
+    errors_17 = data_points' - corresponding_y_17;
+    mse_17 = mean(errors_17.^2)
+
+    % k = 18
+    corresponding_y_18 = c_basis_18(18)*x_samples.^17 + c_basis_18(17)*x_samples.^16 + c_basis_18(16)*x_samples.^15 + c_basis_18(15)*x_samples.^14 + c_basis_18(14)*x_samples.^13 + c_basis_18(13)*x_samples.^12 + c_basis_18(12)*x_samples.^11 + c_basis_18(11)*x_samples.^10 + c_basis_18(10)*x_samples.^9 + c_basis_18(9)*x_samples.^8 + c_basis_18(8)*x_samples.^7 + c_basis_18(7)*x_samples.^6 + c_basis_18(6)*x_samples.^5 + c_basis_18(5)*x_samples.^4 + c_basis_18(4)*x_samples.^3 + c_basis_18(3)*x_samples.^2 + c_basis_18(2)*x_samples + c_basis_18(1);
+    errors_18 = data_points' - corresponding_y_18;
+    mse_18 = mean(errors_18.^2)
+
+
+
+    %% Do the same for a test set of size 1000
+    % Mean Squared error for k = 2
+    corresponding_y_1000_2 = c_basis_2(2)*x_samples_1000 + c_basis_2(1);
+    errors_1000_2 = data_points_1000' - corresponding_y_1000_2;
+    mse_1000_2 = mean(errors_1000_2.^2)
+
+    % Mean Squared error for k = 3
+    corresponding_y_1000_3 = c_basis_3(3)*x_samples_1000.^2 + c_basis_3(2)*x_samples_1000 + c_basis_3(1);
+    errors_1000_3 = data_points_1000' - corresponding_y_1000_3;
+    mse_1000_3 = mean(errors_1000_3.^2)
+
+    % Mean Squared error for k = 3
+    corresponding_y_1000_4 = c_basis_4(4)*x_samples_1000.^3 + c_basis_4(3)*x_samples_1000.^2 + c_basis_4(2)*x_samples_1000 + c_basis_4(1);
+    errors_1000_4 = data_points_1000' - corresponding_y_1000_4;
+    mse_1000_4 = mean(errors_1000_4.^2)
+
+    % k = 5
+    corresponding_y_1000_5 = c_basis_5(5)*x_samples_1000.^4 + c_basis_5(4)*x_samples_1000.^3 + c_basis_5(3)*x_samples_1000.^2 + c_basis_5(2)*x_samples_1000 + c_basis_5(1);
+    errors_1000_5 = data_points_1000' - corresponding_y_1000_5;
+    mse_1000_5 = mean(errors_1000_5.^2)
+
+    % k = 6
+    corresponding_y_1000_6 = c_basis_6(6)*x_samples_1000.^5 + c_basis_6(5)*x_samples_1000.^4 + c_basis_6(4)*x_samples_1000.^3 + c_basis_6(3)*x_samples_1000.^2 + c_basis_6(2)*x_samples_1000 + c_basis_6(1);
+    errors_1000_6 = data_points_1000' - corresponding_y_1000_6;
+    mse_1000_6 = mean(errors_1000_6.^2)
+
+    % k = 7
+    corresponding_y_1000_7 = c_basis_7(7)*x_samples_1000.^6 + c_basis_7(6)*x_samples_1000.^5 + c_basis_7(5)*x_samples_1000.^4 + c_basis_7(4)*x_samples_1000.^3 + c_basis_7(3)*x_samples_1000.^2 + c_basis_7(2)*x_samples_1000 + c_basis_7(1);
+    errors_1000_7 = data_points_1000' - corresponding_y_1000_7;
+    mse_1000_7 = mean(errors_1000_7.^2)
+
+    % k = 8
+    corresponding_y_1000_8 = c_basis_8(8)*x_samples_1000.^7 + c_basis_8(7)*x_samples_1000.^6 + c_basis_8(6)*x_samples_1000.^5 + c_basis_8(5)*x_samples_1000.^4 + c_basis_8(4)*x_samples_1000.^3 + c_basis_8(3)*x_samples_1000.^2 + c_basis_8(2)*x_samples_1000 + c_basis_8(1);
+    errors_1000_8 = data_points_1000' - corresponding_y_1000_8;
+    mse_1000_8 = mean(errors_1000_8.^2)
+    % 
+    % k = 9
+    corresponding_y_1000_9 = c_basis_9(9)*x_samples_1000.^8 + c_basis_9(8)*x_samples_1000.^7 + c_basis_9(7)*x_samples_1000.^6 + c_basis_9(6)*x_samples_1000.^5 + c_basis_9(5)*x_samples_1000.^4 + c_basis_9(4)*x_samples_1000.^3 + c_basis_9(3)*x_samples_1000.^2 + c_basis_9(2)*x_samples_1000 + c_basis_9(1);
+    errors_1000_9 = data_points_1000' - corresponding_y_1000_9;
+    mse_1000_9 = mean(errors_1000_9.^2)
+
+    % k = 10
+    corresponding_y_1000_10 = c_basis_10(10)*x_samples_1000.^9 + c_basis_10(9)*x_samples_1000.^8 + c_basis_10(8)*x_samples_1000.^7 + c_basis_10(7)*x_samples_1000.^6 + c_basis_10(6)*x_samples_1000.^5 + c_basis_10(5)*x_samples_1000.^4 + c_basis_10(4)*x_samples_1000.^3 + c_basis_10(3)*x_samples_1000.^2 + c_basis_10(2)*x_samples_1000 + c_basis_10(1);
+    errors_1000_10 = data_points_1000' - corresponding_y_1000_10;
+    mse_1000_10 = mean(errors_1000_10.^2)
+
+    % k = 11
+    corresponding_y_1000_11 = c_basis_11(11)*x_samples_1000.^10 + c_basis_11(10)*x_samples_1000.^9 + c_basis_11(9)*x_samples_1000.^8 + c_basis_11(8)*x_samples_1000.^7 + c_basis_11(7)*x_samples_1000.^6 + c_basis_11(6)*x_samples_1000.^5 + c_basis_11(5)*x_samples_1000.^4 + c_basis_11(4)*x_samples_1000.^3 + c_basis_11(3)*x_samples_1000.^2 + c_basis_11(2)*x_samples_1000 + c_basis_11(1);
+    errors_1000_11 = data_points_1000' - corresponding_y_1000_11;
+    mse_1000_11 = mean(errors_1000_11.^2)
+
+    % k = 12
+    corresponding_y_1000_12 = c_basis_12(12)*x_samples_1000.^11 + c_basis_12(11)*x_samples_1000.^10 + c_basis_12(10)*x_samples_1000.^9 + c_basis_12(9)*x_samples_1000.^8 + c_basis_12(8)*x_samples_1000.^7 + c_basis_12(7)*x_samples_1000.^6 + c_basis_12(6)*x_samples_1000.^5 + c_basis_12(5)*x_samples_1000.^4 + c_basis_12(4)*x_samples_1000.^3 + c_basis_12(3)*x_samples_1000.^2 + c_basis_12(2)*x_samples_1000 + c_basis_12(1);
+    errors_1000_12 = data_points_1000' - corresponding_y_1000_12;
+    mse_1000_12 = mean(errors_1000_12.^2)
+
+    % k = 13
+    corresponding_y_1000_13 = c_basis_13(13)*x_samples_1000.^12 + c_basis_13(12)*x_samples_1000.^11 + c_basis_13(11)*x_samples_1000.^10 + c_basis_13(10)*x_samples_1000.^9 + c_basis_13(9)*x_samples_1000.^8 + c_basis_13(8)*x_samples_1000.^7 + c_basis_13(7)*x_samples_1000.^6 + c_basis_13(6)*x_samples_1000.^5 + c_basis_13(5)*x_samples_1000.^4 + c_basis_13(4)*x_samples_1000.^3 + c_basis_13(3)*x_samples_1000.^2 + c_basis_13(2)*x_samples_1000 + c_basis_13(1);
+    errors_1000_13 = data_points_1000' - corresponding_y_1000_13;
+    mse_1000_13 = mean(errors_1000_13.^2)
+
+    % k = 14
+    corresponding_y_1000_14 = c_basis_14(14)*x_samples_1000.^13 + c_basis_14(13)*x_samples_1000.^12 + c_basis_14(12)*x_samples_1000.^11 + c_basis_14(11)*x_samples_1000.^10 + c_basis_14(10)*x_samples_1000.^9 + c_basis_14(9)*x_samples_1000.^8 + c_basis_14(8)*x_samples_1000.^7 + c_basis_14(7)*x_samples_1000.^6 + c_basis_14(6)*x_samples_1000.^5 + c_basis_14(5)*x_samples_1000.^4 + c_basis_14(4)*x_samples_1000.^3 + c_basis_14(3)*x_samples_1000.^2 + c_basis_14(2)*x_samples_1000 + c_basis_14(1);
+    errors_1000_14 = data_points_1000' - corresponding_y_1000_14;
+    mse_1000_14 = mean(errors_1000_14.^2)
+
+    % k = 15
+    corresponding_y_1000_15 = c_basis_15(15)*x_samples_1000.^14 + c_basis_15(14)*x_samples_1000.^13 + c_basis_15(13)*x_samples_1000.^12 + c_basis_15(12)*x_samples_1000.^11 + c_basis_15(11)*x_samples_1000.^10 + c_basis_15(10)*x_samples_1000.^9 + c_basis_15(9)*x_samples_1000.^8 + c_basis_15(8)*x_samples_1000.^7 + c_basis_15(7)*x_samples_1000.^6 + c_basis_15(6)*x_samples_1000.^5 + c_basis_15(5)*x_samples_1000.^4 + c_basis_15(4)*x_samples_1000.^3 + c_basis_15(3)*x_samples_1000.^2 + c_basis_15(2)*x_samples_1000 + c_basis_15(1);
+    errors_1000_15 = data_points_1000' - corresponding_y_1000_15;
+    mse_1000_15 = mean(errors_1000_15.^2)
+
+    % k = 16
+    corresponding_y_1000_16 = c_basis_16(16)*x_samples_1000.^15 + c_basis_16(15)*x_samples_1000.^14 + c_basis_16(14)*x_samples_1000.^13 + c_basis_16(13)*x_samples_1000.^12 + c_basis_16(12)*x_samples_1000.^11 + c_basis_16(11)*x_samples_1000.^10 + c_basis_16(10)*x_samples_1000.^9 + c_basis_16(9)*x_samples_1000.^8 + c_basis_16(8)*x_samples_1000.^7 + c_basis_16(7)*x_samples_1000.^6 + c_basis_16(6)*x_samples_1000.^5 + c_basis_16(5)*x_samples_1000.^4 + c_basis_16(4)*x_samples_1000.^3 + c_basis_16(3)*x_samples_1000.^2 + c_basis_16(2)*x_samples_1000 + c_basis_16(1);
+    errors_1000_16 = data_points_1000' - corresponding_y_1000_16;
+    mse_1000_16 = mean(errors_1000_16.^2)
+
+    % k = 17
+    corresponding_y_1000_17 = c_basis_17(17)*x_samples_1000.^16 + c_basis_17(16)*x_samples_1000.^15 + c_basis_17(15)*x_samples_1000.^14 + c_basis_17(14)*x_samples_1000.^13 + c_basis_17(13)*x_samples_1000.^12 + c_basis_17(12)*x_samples_1000.^11 + c_basis_17(11)*x_samples_1000.^10 + c_basis_17(10)*x_samples_1000.^9 + c_basis_17(9)*x_samples_1000.^8 + c_basis_17(8)*x_samples_1000.^7 + c_basis_17(7)*x_samples_1000.^6 + c_basis_17(6)*x_samples_1000.^5 + c_basis_17(5)*x_samples_1000.^4 + c_basis_17(4)*x_samples_1000.^3 + c_basis_17(3)*x_samples_1000.^2 + c_basis_17(2)*x_samples_1000 + c_basis_17(1);
+    errors_1000_17 = data_points_1000' - corresponding_y_1000_17;
+    mse_1000_17 = mean(errors_1000_17.^2)
+
+    % k = 18
+    corresponding_y_1000_18 = c_basis_18(18)*x_samples_1000.^17 + c_basis_18(17)*x_samples_1000.^16 + c_basis_18(16)*x_samples_1000.^15 + c_basis_18(15)*x_samples_1000.^14 + c_basis_18(14)*x_samples_1000.^13 + c_basis_18(13)*x_samples_1000.^12 + c_basis_18(12)*x_samples_1000.^11 + c_basis_18(11)*x_samples_1000.^10 + c_basis_18(10)*x_samples_1000.^9 + c_basis_18(9)*x_samples_1000.^8 + c_basis_18(8)*x_samples_1000.^7 + c_basis_18(7)*x_samples_1000.^6 + c_basis_18(6)*x_samples_1000.^5 + c_basis_18(5)*x_samples_1000.^4 + c_basis_18(4)*x_samples_1000.^3 + c_basis_18(3)*x_samples_1000.^2 + c_basis_18(2)*x_samples_1000 + c_basis_18(1);
+    errors_1000_18 = data_points_1000' - corresponding_y_1000_18;
+    mse_1000_18 = mean(errors_1000_18.^2)
+
+    dimensions = [2:18];
+    mse_results = [mse_2,mse_3,mse_4,mse_5,mse_6,mse_7,mse_8,mse_9,mse_10,mse_11,mse_12,mse_13,mse_14,mse_15,mse_16,mse_17,mse_18];
+    mse_1000_results = [mse_1000_2,mse_1000_3,mse_1000_4,mse_1000_5,mse_1000_6,mse_1000_7,mse_1000_8,mse_1000_9,mse_1000_10,mse_1000_11,mse_1000_12,mse_1000_13,mse_1000_14,mse_1000_15,mse_1000_16,mse_1000_17,mse_1000_18];
+
+    mse_results_sum = mse_results_sum + mse_results;
+    mse_results_1000_sum = mse_results_1000_sum + mse_1000_results;
+  
+end
+
+mse_results_avg = mse_results_sum/iterations;
+mse_results_1000_avg = mse_results_1000_sum/iterations;
+
+log_mse_results = log(mse_results_avg);
+log_mse_1000_results = log(mse_results_1000_avg);
+
+figure
+hold on
+plot(dimensions,log_mse_results,'Color','red', 'LineWidth',1.5);xlabel('Polynomial Dimension','FontSize',14);ylabel('Log Mean Squared Error','FontSize',14);grid on;title('Log of the Mean Squared Error on the Training Set (Size 30)','FontSize',16);
+plot(dimensions,log_mse_1000_results,'LineWidth',1.5);grid on;xlabel('Polynomial Dimension','FontSize',14);ylabel('Log Mean Squared Error','FontSize',14);legend('Sample size 30 MSE', 'Sample size 1000 MSE');title('A comparison of the log of MSE values for sample sizes 30 and 1000, where both datasets are fitted with the polynomials deriving from the dataset of size 30','FontSize',16);legend('Training Set Log Mean Squared Error','Test Set Log Mean Squared Error');
+% Uncomment the line below and comment out the line above to get separate graphs
+% plot(dimensions,log_mse_1000_results,'LineWidth',1.5);grid on;legend('Sample size 30 MSE', 'Sample size 1000 MSE');xlabel('Polynomial Dimension','FontSize',14);ylabel('Log Mean Squared Error','FontSize',14);title('Log of the Mean Squared Error on the Test set (Size 1000)','FontSize',16');legend('Test Set Mean Squared Error');
+set(gcf,'color','w');
+hold off
